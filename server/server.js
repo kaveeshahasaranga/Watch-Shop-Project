@@ -2,19 +2,22 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const productRoutes = require('./routes/productRoutes'); // 1. මේක එකතු කරන්න
 
 dotenv.config();
-connectDB(); // Database connect කරනවා
+connectDB();
 
 const app = express();
 
 app.use(cors());
-app.use(express.json()); // JSON දත්ත කියවන්න පුළුවන් කරනවා
+app.use(express.json());
 
-// Test Route එකක්
 app.get('/', (req, res) => {
   res.send('API is running... ⌚');
 });
+
+// 2. මෙතනින් Route එක connect කරන්න
+app.use('/api/products', productRoutes);
 
 const PORT = process.env.PORT || 5000;
 
